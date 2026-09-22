@@ -38,6 +38,7 @@ type ProblemConfig struct {
 	Languages   []string           `yaml:"languages" json:"languages"`
 	Limits      ResourceLimits     `yaml:"limits" json:"limits"`
 	Documents   DocumentsConfig    `yaml:"documents" json:"documents"`
+	Templates   TemplateConfig     `yaml:"templates,omitempty" json:"templates,omitempty"`
 	Evaluation  EvaluationConfig   `yaml:"evaluation" json:"evaluation"`
 	Tests       TestsConfig        `yaml:"tests" json:"tests"`
 	Interactive *InteractiveConfig `yaml:"interactive,omitempty" json:"interactive,omitempty"`
@@ -75,8 +76,15 @@ type DocumentEntry struct {
 
 type EvaluationConfig struct {
 	Checker   CheckerConfig  `yaml:"checker" json:"checker"`
+	Answer    AnswerConfig   `yaml:"answer" json:"answer"`
 	Validator ProgramRef     `yaml:"validator,omitempty" json:"validator,omitempty"`
 	Solutions []SolutionSpec `yaml:"solutions" json:"solutions"`
+}
+
+type AnswerConfig struct {
+	Mode      string `yaml:"mode" json:"mode"`
+	Source    string `yaml:"source,omitempty" json:"source,omitempty"`
+	StaticDir string `yaml:"static_dir,omitempty" json:"static_dir,omitempty"`
 }
 
 type CheckerConfig struct {

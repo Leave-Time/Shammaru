@@ -43,6 +43,22 @@ export namespace document {
 
 export namespace domain {
 	
+	export class AnswerConfig {
+	    mode: string;
+	    source?: string;
+	    static_dir?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new AnswerConfig(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.mode = source["mode"];
+	        this.source = source["source"];
+	        this.static_dir = source["static_dir"];
+	    }
+	}
 	export class CheckerConfig {
 	    type: string;
 	    source?: string;
@@ -145,6 +161,7 @@ export namespace domain {
 	}
 	export class EvaluationConfig {
 	    checker: CheckerConfig;
+	    answer: AnswerConfig;
 	    validator?: ProgramRef;
 	    solutions: SolutionSpec[];
 	
@@ -155,6 +172,7 @@ export namespace domain {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.checker = this.convertValues(source["checker"], CheckerConfig);
+	        this.answer = this.convertValues(source["answer"], AnswerConfig);
 	        this.validator = this.convertValues(source["validator"], ProgramRef);
 	        this.solutions = this.convertValues(source["solutions"], SolutionSpec);
 	    }
@@ -221,6 +239,20 @@ export namespace domain {
 	        this.manifest = source["manifest"];
 	    }
 	}
+	export class TemplateConfig {
+	    latex?: string;
+	    typst?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new TemplateConfig(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.latex = source["latex"];
+	        this.typst = source["typst"];
+	    }
+	}
 	export class ResourceLimits {
 	    time_ms: number;
 	    memory_mb: number;
@@ -250,6 +282,7 @@ export namespace domain {
 	    languages: string[];
 	    limits: ResourceLimits;
 	    documents: DocumentsConfig;
+	    templates?: TemplateConfig;
 	    evaluation: EvaluationConfig;
 	    tests: TestsConfig;
 	    interactive?: InteractiveConfig;
@@ -268,6 +301,7 @@ export namespace domain {
 	        this.languages = source["languages"];
 	        this.limits = this.convertValues(source["limits"], ResourceLimits);
 	        this.documents = this.convertValues(source["documents"], DocumentsConfig);
+	        this.templates = this.convertValues(source["templates"], TemplateConfig);
 	        this.evaluation = this.convertValues(source["evaluation"], EvaluationConfig);
 	        this.tests = this.convertValues(source["tests"], TestsConfig);
 	        this.interactive = this.convertValues(source["interactive"], InteractiveConfig);
@@ -346,6 +380,7 @@ export namespace domain {
 	        this.updatedAt = source["updatedAt"];
 	    }
 	}
+	
 	
 	
 
