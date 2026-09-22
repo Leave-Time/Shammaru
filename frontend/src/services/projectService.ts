@@ -1,4 +1,4 @@
-import { CreateProject, GetRecentProjects, OpenProjectDialog, OpenRecentProject } from '../../wailsjs/go/main/App'
+import { CreateProject, GetRecentProjects, OpenProjectDialog, OpenRecentProject } from '../../wailsjs/go/app/App'
 
 export type Project = { id: string; name: string; path: string; updatedAt: string }
 
