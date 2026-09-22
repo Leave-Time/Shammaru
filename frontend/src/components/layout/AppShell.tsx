@@ -6,11 +6,13 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Database,
+  FileOutput,
   FileCode2,
   FolderOpen,
   Grid2X2,
   MoreHorizontal,
   Plus,
+  SlidersHorizontal,
   Settings,
   Sun,
 } from "lucide-react";
@@ -19,10 +21,18 @@ import { Separator } from "@/components/ui/separator";
 import type { Project } from "@/services/projectService";
 import "./layout.css";
 
-const workspaceItems = [
-  { label: "工作台", icon: Grid2X2 },
-  { label: "题目编辑器", icon: FileCode2, count: 3 },
-  { label: "测试数据", icon: Database },
+const projectItems = [
+  { label: "首页", icon: Grid2X2 },
+  { label: "项目设置", icon: SlidersHorizontal },
+  { label: "题目", icon: FileCode2 },
+  { label: "导出", icon: FileOutput },
+];
+
+const problemItems = [
+  { label: "题目信息", icon: FileCode2 },
+  { label: "文档编辑", icon: BookOpen },
+  { label: "测试数据与样例", icon: Database },
+  { label: "标程与裁判解", icon: FileCode2 },
 ];
 type AppShellProps = {
   active: string;
@@ -87,15 +97,15 @@ export function AppShell({
               <>
                 <Button
                   className="new-project"
-                  onClick={() => onNavigate("题目编辑器")}
+                  onClick={() => onNavigate("题目信息")}
                 >
                   <Plus size={16} />
                   <span>新建题目</span>
                   <kbd>⌘ N</kbd>
                 </Button>
                 <nav>
-                  <p className="nav-label">工作区</p>
-                  {workspaceItems.map(({ label, icon: Icon, count }) => (
+                  <p className="nav-label">项目</p>
+                  {projectItems.map(({ label, icon: Icon }) => (
                     <button
                       key={label}
                       onClick={() => onNavigate(label)}
@@ -104,18 +114,20 @@ export function AppShell({
                     >
                       <Icon size={16} />
                       <span>{label}</span>
-                      {count && <em>{count}</em>}
                     </button>
                   ))}
-                  <p className="nav-label nav-spaced">资源</p>
-                  <button
-                    className={`nav-item ${active === "文档" ? "active" : ""}`}
-                    onClick={() => onNavigate("文档")}
-                  >
-                    <BookOpen size={16} />
-                    <span>文档</span>
-                    <ChevronRight className="nav-chevron" size={14} />
-                  </button>
+                  <p className="nav-label nav-spaced">题目</p>
+                  {problemItems.map(({ label, icon: Icon }) => (
+                    <button
+                      key={label}
+                      onClick={() => onNavigate(label)}
+                      className={`nav-item ${active === label ? "active" : ""}`}
+                      title={collapsed ? label : undefined}
+                    >
+                      <Icon size={16} />
+                      <span>{label}</span>
+                    </button>
+                  ))}
                 </nav>
               </>
             ) : (

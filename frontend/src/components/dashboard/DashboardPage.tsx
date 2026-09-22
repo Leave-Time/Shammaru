@@ -56,7 +56,7 @@ export function DashboardPage({ onNew }: { onNew: () => void }) {
       <div className="dashboard-scroll">
         <div className="dashboard-inner">
           <div className="breadcrumb">
-            工作区 <ChevronRight size={13} /> <strong>工作台</strong>
+              工作区 <ChevronRight size={13} /> <strong>首页</strong>
           </div>
           <section className="welcome">
             <div>
