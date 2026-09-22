@@ -1,3 +1,46 @@
+export namespace document {
+	
+	export class Request {
+	    source: string;
+	    output: string;
+	    format: string;
+	    workdir: string;
+	    template?: string;
+	    timeout_ms?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Request(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.source = source["source"];
+	        this.output = source["output"];
+	        this.format = source["format"];
+	        this.workdir = source["workdir"];
+	        this.template = source["template"];
+	        this.timeout_ms = source["timeout_ms"];
+	    }
+	}
+	export class Result {
+	    output: string;
+	    command: string;
+	    duration: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Result(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.output = source["output"];
+	        this.command = source["command"];
+	        this.duration = source["duration"];
+	    }
+	}
+
+}
+
 export namespace domain {
 	
 	export class CheckerConfig {

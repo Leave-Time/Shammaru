@@ -5,6 +5,7 @@ import (
 	"errors"
 	"strings"
 
+	"Shammaru/internal/document"
 	"Shammaru/internal/domain"
 	exporter "Shammaru/internal/export"
 	"Shammaru/internal/generator"
@@ -72,4 +73,8 @@ func (a *App) CompareOutput(checker domain.CheckerConfig, expected, actual strin
 
 func (a *App) GenerateTests(request generator.Request) generator.Result {
 	return generator.Generate(context.Background(), request)
+}
+
+func (a *App) BuildDocument(request document.Request) (document.Result, error) {
+	return document.Compile(context.Background(), request)
 }
