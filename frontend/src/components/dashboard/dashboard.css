@@ -1,0 +1,321 @@
+.dashboard-scroll {
+    flex: 1;
+    overflow: auto;
+}
+.dashboard-inner {
+    width: min(1180px, calc(100% - 72px));
+    margin: auto;
+    padding: 27px 0 38px;
+}
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #98a4b5;
+    font-size: 12px;
+}
+.breadcrumb strong {
+    color: #607087;
+    font-weight: 550;
+}
+.welcome {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.045em;
+    color: #8190a3;
+    margin: 0 0 8px;
+}
+.welcome h1 {
+    font-size: 27px;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    margin: 0;
+    font-weight: 700;
+}
+.welcome h1 span {
+    color: #d79631;
+    font-size: 20px;
+    vertical-align: 4px;
+}
+.welcome p:not(.eyebrow) {
+    color: #7d8ba0;
+    font-size: 13px;
+    margin: 9px 0 0;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 30px;
+}
+.stat {
+    min-height: 92px;
+    padding: 17px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 1px 2px #0f172a09;
+    border-color: #e2e8f0;
+}
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 7px;
+    background: #edf3ff;
+    color: #3971d4;
+}
+.stat:nth-child(2) .stat-icon {
+    background: #fff6df;
+    color: #c58b1e;
+}
+.stat:nth-child(3) .stat-icon {
+    background: #eaf8f0;
+    color: #27985a;
+}
+.stat-icon svg {
+    width: 16px;
+}
+.stat div {
+    flex: 1;
+}
+.stat small {
+    display: block;
+    color: #78879b;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+.stat strong {
+    font-size: 22px;
+    letter-spacing: -0.03em;
+}
+.stat em {
+    align-self: flex-end;
+    color: #579066;
+    font-style: normal;
+    font-size: 11px;
+    white-space: nowrap;
+}
+.stat em i {
+    font-style: normal;
+    color: #a1adbb;
+}
+.stat em.positive {
+    color: #299563;
+}
+.project-toolbar {
+    margin-top: 36px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.project-toolbar > div {
+    display: flex;
+    gap: 21px;
+}
+.project-toolbar button {
+    height: 37px;
+    border: 0;
+    background: none;
+    padding: 0 1px;
+    color: #94a0b0;
+    font-size: 12px;
+    cursor: pointer;
+}
+.project-toolbar button.selected {
+    color: #245bc1;
+    font-weight: 650;
+    border-bottom: 2px solid #2f66ca;
+}
+.project-toolbar > button {
+    height: 30px;
+    margin-bottom: 6px;
+}
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+}
+.project-card {
+    min-height: 202px;
+    padding: 15px 16px 13px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 2px #0f172a09;
+}
+.project-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.project-top button {
+    width: 25px;
+    height: 25px;
+}
+.project-top .cpp {
+    color: #315ca6;
+    background: #ecf2ff;
+    border: 0;
+}
+.project-top .python {
+    color: #97701d;
+    background: #fff6da;
+    border: 0;
+}
+.project-main {
+    flex: 1;
+    padding-top: 17px;
+}
+.project-main h3 {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 650;
+}
+.project-main p {
+    font-size: 11px;
+    color: #8290a1;
+    margin: 7px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.project-meta {
+    display: flex;
+    gap: 9px;
+    color: #9aa6b4;
+    font-size: 10px;
+    margin-top: 25px;
+}
+.project-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.project-meta i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4bb77b;
+}
+.project-meta i.amber {
+    background: #d7a237;
+}
+.project-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 11px;
+    font-size: 10px;
+}
+.project-bottom .hard {
+    color: #c25d65;
+}
+.project-bottom .medium {
+    color: #bf8b2d;
+}
+.project-bottom > span:last-child {
+    color: #9aa6b4;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+.project-bottom svg {
+    color: #b5bdc8;
+}
+.create-card {
+    min-height: 202px;
+    border: 1px dashed #cfd8e4;
+    border-radius: 8px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: #7d8b9e;
+    cursor: pointer;
+}
+.create-card:hover {
+    background: #fff;
+    border-color: #97b2df;
+}
+.create-card > span {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #d6e0ed;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+.create-card strong {
+    font-size: 12px;
+    color: #66758a;
+}
+.create-card small {
+    font-size: 10px;
+    color: #a0acba;
+}
+.inspiration {
+    margin-top: 28px;
+    padding: 17px 19px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: #f7faff;
+    border-color: #d9e3f3;
+    box-shadow: none;
+}
+.inspiration-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    color: #3970cc;
+    background: #e8f0ff;
+    display: grid;
+    place-items: center;
+}
+.inspiration div {
+    flex: 1;
+}
+.inspiration strong {
+    font-size: 12px;
+    color: #42536c;
+}
+.inspiration p {
+    font-size: 11px;
+    color: #8492a5;
+    margin: 4px 0 0;
+}
+.dashboard-footer {
+    display: flex;
+    justify-content: space-between;
+    color: #9ba7b6;
+    font-size: 10px;
+    border-top: 1px solid #e2e8f0;
+    padding: 13px 30px;
+    background: #ffffff88;
+}
+.dashboard-footer i {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #4caf78;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+@media (max-width: 1100px) {
+    .dashboard-inner {
+        width: calc(100% - 44px);
+    }
+    .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
