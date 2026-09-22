@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import "./workbench.css";
 import "./problem.css";
+import { CodeEditor } from "./CodeEditor";
 
 export function ProjectSettingsPage() {
   return <WorkbenchFrame eyebrow="项目设置" title="项目设置" description="管理项目基础信息与默认配置。">
@@ -40,7 +41,7 @@ export function ProblemInfoPage() {
 
 export function DocumentPage() {
   return <WorkbenchFrame eyebrow="题目 / 文档编辑" title="文档编辑" description="专注编写题面内容，实时预览最终呈现效果。">
-    <div className="editor-layout"><Card className="workbench-panel editor-panel"><div className="editor-toolbar"><span>题面正文</span><div><Button variant="ghost" size="icon" aria-label="插入代码"><Code2 size={16} /></Button><Button variant="ghost" size="icon" aria-label="保存文档"><Save size={16} /></Button></div></div><textarea className="document-editor" defaultValue={"# 区间最大子段和\n\n给定一个长度为 n 的整数序列，请你求出其中连续子段的最大和。\n\n## 输入格式\n第一行包含一个整数 n。\n第二行包含 n 个整数。\n\n## 输出格式\n输出一个整数，表示连续子段的最大和。"} /></Card><Card className="workbench-panel preview-panel"><div className="panel-heading"><div><h2>预览</h2><p>题面在评测平台中的显示效果。</p></div><Badge variant="secondary">Markdown</Badge></div><Separator /><div className="markdown-preview"><h1>区间最大子段和</h1><p>给定一个长度为 n 的整数序列，请你求出其中连续子段的最大和。</p><h2>输入格式</h2><p>第一行包含一个整数 n。</p><p>第二行包含 n 个整数。</p><h2>输出格式</h2><p>输出一个整数，表示连续子段的最大和。</p></div></Card></div>
+    <div className="editor-layout"><CodeEditor fileName="statement.md" language="markdown" value={"# 区间最大子段和\n\n给定一个长度为 n 的整数序列，请你求出其中连续子段的最大和。\n\n## 输入格式\n第一行包含一个整数 n。\n第二行包含 n 个整数。\n\n## 输出格式\n输出一个整数，表示连续子段的最大和。"} /><Card className="workbench-panel preview-panel"><div className="panel-heading"><div><h2>预览</h2><p>题面在评测平台中的显示效果。</p></div><Badge variant="secondary">Markdown</Badge></div><Separator /><div className="markdown-preview"><h1>区间最大子段和</h1><p>给定一个长度为 n 的整数序列，请你求出其中连续子段的最大和。</p><h2>输入格式</h2><p>第一行包含一个整数 n。</p><p>第二行包含 n 个整数。</p><h2>输出格式</h2><p>输出一个整数，表示连续子段的最大和。</p></div></Card></div>
   </WorkbenchFrame>;
 }
 
@@ -53,7 +54,7 @@ export function TestDataPage() {
 
 export function SolutionsPage() {
   return <WorkbenchFrame eyebrow="题目 / 标程与裁判解" title="标程与裁判解" description="维护可信的参考实现，并验证评测逻辑。">
-    <Card className="workbench-panel"><div className="panel-heading"><div><h2>参考实现</h2><p>用于生成答案和验证测试数据的标准程序。</p></div><Button><Save size={15} />保存代码</Button></div><Separator /><div className="code-header"><Badge variant="secondary"><Code2 size={13} /> C++17</Badge><span>main.cpp · 已保存</span></div><pre className="code-block"><code>{`#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n  ios::sync_with_stdio(false);\n  cin.tie(nullptr);\n  int n; cin >> n;\n  long long best = LLONG_MIN, sum = 0, x;\n  while (n--) { cin >> x; sum = max(x, sum + x); best = max(best, sum); }\n  cout << best << '\\n';\n}`}</code></pre></Card>
+    <CodeEditor fileName="main.cpp" language="cpp" value={`#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n  ios::sync_with_stdio(false);\n  cin.tie(nullptr);\n  int n; cin >> n;\n  long long best = LLONG_MIN, sum = 0, x;\n  while (n--) { cin >> x; sum = max(x, sum + x); best = max(best, sum); }\n  cout << best << '\\n';\n}`} />
     <Card className="workbench-panel"><div className="setting-row"><div><strong>最近一次验证</strong><small>所有测试点均通过 · 2.4 秒前</small></div><span className="success-label"><Check size={14} />验证通过</span></div></Card>
   </WorkbenchFrame>;
 }
