@@ -43,6 +43,11 @@ type AppShellProps = {
   onOpenProject: () => void;
   onOpenRecent: (project: Project) => void;
   recentProjects: Project[];
+  problems: { id: string; name: string }[];
+  selectedProblemId: string | null;
+  onSelectProject: (project: Project) => void;
+  onSelectProblem: (problemId: string) => void;
+  onBackToProblems: () => void;
   children: React.ReactNode;
 };
 
@@ -55,6 +60,11 @@ export function AppShell({
   onOpenProject,
   onOpenRecent,
   recentProjects,
+  problems,
+  selectedProblemId,
+  onSelectProject,
+  onSelectProblem,
+  onBackToProblems,
   children,
 }: AppShellProps) {
   const [collapsed, setCollapsed] = React.useState(false);
@@ -65,7 +75,34 @@ export function AppShell({
           <span className="brand-mark">S</span>
           <span className="brand-name">Shammaru</span>
           <Separator orientation="vertical" className="brand-separator" />
-          <span className="brand-context">{projectOpen ? currentProject?.name ?? "题目工坊" : "题目工坊"}</span>
+          {projectOpen ? (
+            <label className="project-switcher">
+              <span className="sr-only">切换项目</span>
+              <select
+                value={currentProject?.id ?? ""}
+                onChange={(event) => {
+                  const project = recentProjects.find(
+                    (item) => item.id === event.target.value,
+                  );
+                  if (project) onSelectProject(project);
+                }}
+              >
+                <option value={currentProject?.id ?? ""}>
+                  {currentProject?.name ?? "当前项目"}
+                </option>
+                {recentProjects
+                  .filter((item) => item.id !== currentProject?.id)
+                  .map((project) => (
+                    <option key={project.id} value={project.id}>
+                      {project.name}
+                    </option>
+                  ))}
+              </select>
+              <ChevronRight size={14} />
+            </label>
+          ) : (
+            <span className="brand-context">题目工坊</span>
+          )}
         </div>
         <div className="topbar-actions">
           <Button size="icon" variant="ghost" aria-label="切换主题">
@@ -95,39 +132,68 @@ export function AppShell({
           <div className="sidebar-content">
             {projectOpen ? (
               <>
-                <Button
-                  className="new-project"
-                  onClick={() => onNavigate("题目信息")}
-                >
-                  <Plus size={16} />
-                  <span>新建题目</span>
-                  <kbd>⌘ N</kbd>
-                </Button>
+                {selectedProblemId ? (
+                  <button className="workspace-back" onClick={onBackToProblems}>
+                    <ChevronRight size={14} className="back-icon" />
+                    <span>返回项目题目</span>
+                  </button>
+                ) : (
+                  <Button
+                    className="new-project"
+                    onClick={() => onNavigate("题目信息")}
+                  >
+                    <Plus size={16} />
+                    <span>新建题目</span>
+                    <kbd>⌘ N</kbd>
+                  </Button>
+                )}
                 <nav>
-                  <p className="nav-label">项目</p>
-                  {projectItems.map(({ label, icon: Icon }) => (
-                    <button
-                      key={label}
-                      onClick={() => onNavigate(label)}
-                      className={`nav-item ${active === label ? "active" : ""}`}
-                      title={collapsed ? label : undefined}
-                    >
-                      <Icon size={16} />
-                      <span>{label}</span>
-                    </button>
-                  ))}
-                  <p className="nav-label nav-spaced">题目</p>
-                  {problemItems.map(({ label, icon: Icon }) => (
-                    <button
-                      key={label}
-                      onClick={() => onNavigate(label)}
-                      className={`nav-item ${active === label ? "active" : ""}`}
-                      title={collapsed ? label : undefined}
-                    >
-                      <Icon size={16} />
-                      <span>{label}</span>
-                    </button>
-                  ))}
+                  {!selectedProblemId ? (
+                    <>
+                      <p className="nav-label">项目工作区</p>
+                      {projectItems.map(({ label, icon: Icon }) => (
+                        <button
+                          key={label}
+                          onClick={() => onNavigate(label)}
+                          className={`nav-item ${active === label ? "active" : ""}`}
+                          title={collapsed ? label : undefined}
+                        >
+                          <Icon size={16} />
+                          <span>{label}</span>
+                        </button>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      <div className="problem-switcher">
+                        <p className="nav-label">当前题目</p>
+                        <select
+                          value={selectedProblemId}
+                          onChange={(event) =>
+                            onSelectProblem(event.target.value)
+                          }
+                        >
+                          {problems.map((problem) => (
+                            <option key={problem.id} value={problem.id}>
+                              {problem.id} · {problem.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <p className="nav-label nav-spaced">题目工作区</p>
+                      {problemItems.map(({ label, icon: Icon }) => (
+                        <button
+                          key={label}
+                          onClick={() => onNavigate(label)}
+                          className={`nav-item ${active === label ? "active" : ""}`}
+                          title={collapsed ? label : undefined}
+                        >
+                          <Icon size={16} />
+                          <span>{label}</span>
+                        </button>
+                      ))}
+                    </>
+                  )}
                 </nav>
               </>
             ) : (
