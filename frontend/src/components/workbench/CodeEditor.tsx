@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import "./code-editor.css";
 
+
 type CodeEditorProps = {
   value: string;
   language: "markdown" | "cpp" | "python";
