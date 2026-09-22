@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -53,7 +54,7 @@ func Run(ctx context.Context, request Request) Result {
 	process := exec.CommandContext(runContext, command, args...)
 	process.Dir = request.WorkDir
 	configureCommand(process)
-	process.Env = append(process.Env, "SHAMMARU_SOURCE="+request.Source, "SHAMMARU_BINARY="+request.Binary, "SHAMMARU_INPUT="+request.Input, "SHAMMARU_OUTPUT="+request.Output, "SHAMMARU_MAIN_CLASS="+request.MainClass)
+	process.Env = append(os.Environ(), "SHAMMARU_SOURCE="+request.Source, "SHAMMARU_BINARY="+request.Binary, "SHAMMARU_INPUT="+request.Input, "SHAMMARU_OUTPUT="+request.Output, "SHAMMARU_MAIN_CLASS="+request.MainClass)
 	var combined bytes.Buffer
 	process.Stdout = &limitedWriter{buffer: &combined, limit: outputLimit(request.Limits.OutputKB)}
 	process.Stderr = &limitedWriter{buffer: &combined, limit: outputLimit(request.Limits.OutputKB)}
