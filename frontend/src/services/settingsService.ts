@@ -1,10 +1,32 @@
-import { GetSettings, SaveSettings } from '../../wailsjs/go/main/App'
-export type Settings = { theme: 'system' | 'light' | 'dark'; autoSave: boolean; defaultProjectDir: string; editorFontSize: number }
-export const defaultSettings: Settings = { theme: 'system', autoSave: true, defaultProjectDir: '', editorFontSize: 14 }
-const hasBridge = () => typeof window !== 'undefined' && Boolean((window as Window & { go?: unknown }).go)
+export type Settings = {
+  theme: "system" | "light" | "dark";
+  autoSave: boolean;
+  defaultProjectDir: string;
+  editorFontSize: number;
+};
+export const defaultSettings: Settings = {
+  theme: "system",
+  autoSave: true,
+  defaultProjectDir: "",
+  editorFontSize: 14,
+};
+const storageKey = "shammaru.settings";
 export async function getSettings(): Promise<Settings> {
-  if (!hasBridge()) return defaultSettings
-  const value = await GetSettings()
-  return { ...defaultSettings, ...value, theme: value.theme as Settings['theme'] }
+  if (typeof window === "undefined") return defaultSettings;
+  try {
+    const value = JSON.parse(
+      window.localStorage.getItem(storageKey) ?? "{}",
+    ) as Partial<Settings>;
+    return {
+      ...defaultSettings,
+      ...value,
+      theme: value.theme ?? defaultSettings.theme,
+    };
+  } catch {
+    return defaultSettings;
+  }
 }
-export async function saveSettings(value: Settings) { if (hasBridge()) await SaveSettings(value) }
+export async function saveSettings(value: Settings) {
+  if (typeof window !== "undefined")
+    window.localStorage.setItem(storageKey, JSON.stringify(value));
+}
