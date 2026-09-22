@@ -148,7 +148,7 @@ export function AppShell({
             )}
           </div>
           <div className="sidebar-bottom">
-            <button className="nav-item">
+            <button className={`nav-item ${active === "设置" ? "active" : ""}`} onClick={() => onNavigate("设置")}>
               <Settings size={16} />
               <span>设置</span>
             </button>
