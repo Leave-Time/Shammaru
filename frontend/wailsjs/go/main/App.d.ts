@@ -6,8 +6,12 @@ export function CreateProject(arg1:string):Promise<main.Project>;
 
 export function GetRecentProjects():Promise<Array<main.Project>>;
 
+export function GetSettings():Promise<main.Settings>;
+
 export function Greet(arg1:string):Promise<string>;
 
 export function OpenProjectDialog():Promise<main.Project>;
 
 export function OpenRecentProject(arg1:string):Promise<main.Project>;
+
+export function SaveSettings(arg1:main.Settings):Promise<void>;

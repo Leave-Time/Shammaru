@@ -3,6 +3,7 @@ import { DashboardPage } from "@/components/dashboard/DashboardPage";
 import { WelcomePage } from "@/components/welcome/WelcomePage";
 import { useProjectSession } from "@/hooks/useProjectSession";
 import { useWorkspaceNavigation } from "@/hooks/useWorkspaceNavigation";
+import { SettingsPage } from "@/components/settings/SettingsPage";
 
 export default function App() {
   const { active, navigate } = useWorkspaceNavigation();
@@ -25,7 +26,7 @@ export default function App() {
         void openRecent(project);
       }}
     >
-      {isProjectOpen ? (
+      {active === "设置" ? <SettingsPage /> : isProjectOpen ? (
         <DashboardPage onNew={() => navigate("题目编辑器")} />
       ) : (
         <WelcomePage
